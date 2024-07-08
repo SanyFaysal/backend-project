@@ -116,13 +116,14 @@ const getAllUsers = async (req, res) => {
 
 const udpateUserStatus = async (req, res) => {
     try {
-        const userId = req.params.userId; // Assuming userId is passed as a route parameter
+        const userId = req.params.userId; 
+        const userData = req.body; // Assuming userId is passed as a route parameter
         const user = await UserModel.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found', success: false });
         }
 
-const result = await UserModel.updateOne({_id:userId}, {status:'active'})
+        const result = await UserModel.updateOne({_id:userId}, userData)
 
         res.status(200).json({
             message: 'User is active now',
